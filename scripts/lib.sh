@@ -47,7 +47,7 @@ load_device() {
 fetch() { # fetch URL DEST  (skips if DEST exists and is non-empty)
 	[ -s "$2" ] && { info "have $(basename "$2")"; return 0; }
 	info "download $(basename "$2")"
-	curl -fL --retry 3 -o "$2.part" "$1" && mv "$2.part" "$2"
+	curl -fL --retry 8 --retry-all-errors --retry-delay 3 -C - -o "$2.part" "$1" && mv "$2.part" "$2"
 }
 
 git_shallow() { # git_shallow URL BRANCH DIR
